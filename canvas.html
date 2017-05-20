@@ -1,0 +1,2329 @@
+<!DOCTYPE html>
+<html>
+	<head> 
+		<title>Han Jie Lee HW 5</title>
+		<link rel='stylesheet' href='./public/stylesheets/style.css' type='text/css' media='screen' title='no title' charset='utf-8'/>
+		<!--<base href='http://cims.nyu.edu/~hjl386/graphics/index.html' target='_blank'>-->
+	</head>
+	<body>
+	<center>
+		<div class='header'>
+			<h1 class='title'> CSCI-UA 480-006: Computer Graphics </h1>
+			<h2 class='homeworkNumber'> Homework 5 - CanvasRenderingContext2D </h2>
+		</div>
+		<div>
+			<table>
+				<tr>
+                    <!-- <td><canvas id=canvas1 onmousedown='flip(g)' width=500 height=500></canvas></td>-->
+                    <td><canvas id=canvas width=500 height=500></canvas></td>
+                    <td><canvas id=canvas1 width=500 height=500></canvas></td>
+					<td width=50></td>
+					<td id='canvasTitle'>Seizure</td>
+				</tr>
+                <tr>
+                    <td><canvas id=canvas2 width=500 height=500></canvas></td>
+                    <td><canvas id=canvas3 width=500 height=500></canvas></td>
+					<td width=50></td>
+				</tr>
+                <tr>
+                    <td><canvas id=canvas4 width=500 height=500></canvas></td>
+                    <td><canvas id=canvas5 width=500 height=500></canvas></td>
+					<td width=50></td>
+				</tr>
+			</table>
+		</div>
+	</center>
+	</body>
+	<script src=drawlib1.js></script>
+	<script>
+        var column = 5;
+        var row = 5;
+        var tilewidth = document.getElementById('canvas').style.width/column;
+        var tileheight = document.getElementById('canvas').style.width/row;
+        const colors = ['#434343', '#c4e0e5', '#4calaf', '#e0eafc', '#cfdef3', '#ba5370', '#f4ed28', '#ff4b1f', '#f7ff00', '#db36a4','#66ff00', '#a80077', '#A43931','#1D4350','#eecda3','#ef629f','#16bffd'];
+        
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+        canvas3.update = function(g){
+            let rowCounter = 0;
+            for(let i = 0; i < 25; i++){
+                if(i % 2 === 0){
+                    const ran = getRandomIntInclusive(0, colors.length);
+                    g.fillStyle = colors[ran];
+                    if(i < 5){
+                        g.fillRect(rowCounter * 100, 0, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5 && i < 10){
+                        g.fillRect(rowCounter * 100, 100, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 10 && i < 15){
+                        g.fillRect(rowCounter * 100, 200, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 15 && i < 20){
+                        g.fillRect(rowCounter * 100, 300, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 20 && i < 25){
+                        g.fillRect(rowCounter * 100, 400, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    }
+                } else if(i % 2 === 1){
+                    const ran = getRandomIntInclusive(0, colors.length);
+                    g.fillStyle = colors[ran];
+                    if(i < 5){
+                        g.fillRect(i * 100, 0, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5 && i < 10){
+                        g.fillRect(rowCounter * 100, 100, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 10 && i < 15){
+                        g.fillRect(rowCounter * 100, 200, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 15 && i < 20){
+                        g.fillRect(rowCounter * 100, 300, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 20 && i < 25){
+                        g.fillRect(rowCounter * 100, 400, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else{
+                        g.fillStyle = 'green';
+                        g.fillRect(i, 10, 10, 10);
+                    }
+                }
+            }
+        }   
+        
+        function randomCheck(ran1, ran2){
+            while(ran1 === ran2){
+                ran2 = getRandomIntInclusive(0, colors.length);
+            }
+            return ran2;
+        }
+        
+		canvas2.update = function(g) {
+            let rowCounter = 0;
+            const ran = getRandomIntInclusive(0, colors.length);
+            let ran2 = getRandomIntInclusive(0, colors.length);
+            if(ran === ran2){
+                ran2 = randomCheck(ran, ran2);
+            }
+            for(let i = 0; i < 25; i++){
+                if(i % 2 === 0){
+//                    g.fillStyle = '#3498db';
+                    g.fillStyle = colors[ran];
+                    if(i < 5){
+                        g.fillRect(rowCounter * 100, 0, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5 && i < 10){
+                        g.fillRect(rowCounter * 100, 100, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 10 && i < 15){
+                        g.fillRect(rowCounter * 100, 200, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 15 && i < 20){
+                        g.fillRect(rowCounter * 100, 300, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 20 && i < 25){
+                        g.fillRect(rowCounter * 100, 400, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    }
+                } else if(i % 2 === 1){
+//                    g.fillStyle = '#cfdef3';
+                    g.fillStyle = colors[ran2];
+                    if(i < 5){
+                        g.fillRect(i * 100, 0, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5 && i < 10){
+                        g.fillRect(rowCounter * 100, 100, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 10 && i < 15){
+                        g.fillRect(rowCounter * 100, 200, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 15 && i < 20){
+                        g.fillRect(rowCounter * 100, 300, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 20 && i < 25){
+                        g.fillRect(rowCounter * 100, 400, 100, 100);
+                        rowCounter++;
+                        if(rowCounter > 4){
+                            rowCounter = 0;
+                        }
+                    } else{
+                        g.fillStyle = 'green';
+                        g.fillRect(i, 10, 10, 10);
+                    }
+                }
+            }
+        }
+        canvas1.update = function(g){
+            const ran = getRandomIntInclusive(0, colors.length);
+            g.fillStyle = colors[ran];
+            g.fillRect(0, 0, 500, 500);
+        }
+        
+        canvas4.update = function(g){
+            let rowCounter = 0;
+            for(let i = 0; i < 100; i++){
+                if(i % 2 === 0){
+                    const ran = getRandomIntInclusive(0, colors.length);
+                    g.fillStyle = colors[ran];
+                    if(i < 10){
+                        g.fillRect(rowCounter * 50, 0, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 10 && i < 20){
+                        g.fillRect(rowCounter * 50, 50, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 20 && i < 30){
+                        g.fillRect(rowCounter * 50, 100, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 30 && i < 40){
+                        g.fillRect(rowCounter * 50, 150, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 40 && i < 50){
+                        g.fillRect(rowCounter * 50, 200, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    }else if(i >= 50 && i < 60){
+                        g.fillRect(rowCounter * 50, 250, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 60 && i < 70){
+                        g.fillRect(rowCounter * 50, 300, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 70 && i < 80){
+                        g.fillRect(rowCounter * 50, 350, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 80 && i < 90){
+                        g.fillRect(rowCounter * 50, 400, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 90 && i < 100){
+                        g.fillRect(rowCounter * 50, 450, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    }
+                } else if(i % 2 === 1){
+                    const ran = getRandomIntInclusive(0, colors.length);
+                    g.fillStyle = colors[ran];
+                    if(i < 10){
+                        g.fillRect(rowCounter * 50, 0, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 10 && i < 20){
+                        g.fillRect(rowCounter * 50, 50, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 20 && i < 30){
+                        g.fillRect(rowCounter * 50, 100, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 30 && i < 40){
+                        g.fillRect(rowCounter * 50, 150, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 40 && i < 50){
+                        g.fillRect(rowCounter * 50, 200, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    }else if(i >= 50 && i < 60){
+                        g.fillRect(rowCounter * 50, 250, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 60 && i < 70){
+                        g.fillRect(rowCounter * 50, 300, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 70 && i < 80){
+                        g.fillRect(rowCounter * 50, 350, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 80 && i < 90){
+                        g.fillRect(rowCounter * 50, 400, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 90 && i < 100){
+                        g.fillRect(rowCounter * 50, 450, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else{
+                        g.fillStyle = 'green';
+                        g.fillRect(i, 10, 10, 10);
+                    }
+                }
+            }
+        }
+        
+        canvas5.update = function(g){
+            let rowCounter = 0;
+            for(let i = 0; i < 10000; i++){
+                if(i % 2 === 0){
+                    const ran = getRandomIntInclusive(0, colors.length);
+                    g.fillStyle = colors[ran];
+                    if(i < 100){
+                        g.fillRect(rowCounter * 5, 0, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 100 && i < 200){
+                        g.fillRect(rowCounter * 5, 5, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 200 && i < 300){
+                        g.fillRect(rowCounter * 5, 10, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 300 && i < 400){
+                        g.fillRect(rowCounter * 5, 15, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 400 && i < 500){
+                        g.fillRect(rowCounter * 5, 20, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 500 && i < 600){
+                        g.fillRect(rowCounter * 5, 25, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 600 && i < 700){
+                        g.fillRect(rowCounter * 5, 30, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 700 && i < 800){
+                        g.fillRect(rowCounter * 5, 35, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 800 && i < 900){
+                        g.fillRect(rowCounter * 5, 40, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 900 && i < 1000){
+                        g.fillRect(rowCounter * 5, 45, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1000 && i < 1100){
+                        g.fillRect(rowCounter * 5, 50, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1100 && i < 1200){
+                        g.fillRect(rowCounter * 5, 55, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1200 && i < 1300){
+                        g.fillRect(rowCounter * 5, 60, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1300 && i < 1400){
+                        g.fillRect(rowCounter * 5, 65, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    }else if(i >= 1400 && i < 1500){
+                        g.fillRect(rowCounter * 5, 70, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1500 && i < 1600){
+                        g.fillRect(rowCounter * 5, 75, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1600 && i < 1700){
+                        g.fillRect(rowCounter * 5, 80, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1700 && i < 1800){
+                        g.fillRect(rowCounter * 5, 85, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1800 && i < 1900){
+                        g.fillRect(rowCounter * 5, 90, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1900 && i < 2000){
+                        g.fillRect(rowCounter * 5, 95, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2000 && i < 2100){
+                        g.fillRect(rowCounter * 5, 100, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2100 && i < 2200){
+                        g.fillRect(rowCounter * 5, 105, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2200 && i < 2300){ 
+                        g.fillRect(rowCounter * 5, 110, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2300 && i < 2400){
+                        g.fillRect(rowCounter * 5, 115, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2400 && i < 2500){
+                        g.fillRect(rowCounter * 5, 120, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2500 && i < 2600){
+                        g.fillRect(rowCounter * 5, 125, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2600 && i < 2700){
+                        g.fillRect(rowCounter * 5, 130, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2700 && i < 2800){
+                        g.fillRect(rowCounter * 5, 135, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2800 && i < 2900){
+                        g.fillRect(rowCounter * 5, 140, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2900 && i < 3000){ //********
+                        g.fillRect(rowCounter * 5, 145, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3000 && i < 3100){
+                        g.fillRect(rowCounter * 5, 150, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3100 && i < 3200){
+                        g.fillRect(rowCounter * 5, 155, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3200 && i < 3300){
+                        g.fillRect(rowCounter * 5, 160, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3300 && i < 3400){
+                        g.fillRect(rowCounter * 5, 165, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    }else if(i >= 3400 && i < 3500){
+                        g.fillRect(rowCounter * 5, 170, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3500 && i < 3600){
+                        g.fillRect(rowCounter * 5, 175, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3600 && i < 3700){
+                        g.fillRect(rowCounter * 5, 180, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3700 && i < 3800){
+                        g.fillRect(rowCounter * 5, 185, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3800 && i < 3900){
+                        g.fillRect(rowCounter * 5, 190, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3900 && i < 4000){
+                        g.fillRect(rowCounter * 5, 195, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4000 && i < 4100){
+                        g.fillRect(rowCounter * 5, 200, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4100 && i < 4200){
+                        g.fillRect(rowCounter * 5, 205, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4200 && i < 4300){
+                        g.fillRect(rowCounter * 5, 210, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4300 && i < 4400){
+                        g.fillRect(rowCounter * 5, 215, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4400 && i < 4500){ //*****
+                        g.fillRect(rowCounter * 5, 220, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4500 && i < 4600){
+                        g.fillRect(rowCounter * 5, 225, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4600 && i < 4700){
+                        g.fillRect(rowCounter * 5, 230, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4700 && i < 4800){
+                        g.fillRect(rowCounter * 5, 235, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4800 && i < 4900){
+                        g.fillRect(rowCounter * 5, 240, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4900 && i < 5000){
+                        g.fillRect(rowCounter * 5, 245, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5000 && i < 5100){
+                        g.fillRect(rowCounter * 5, 250, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5100 && i < 5200){
+                        g.fillRect(rowCounter * 5, 255, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5200 && i < 5300){
+                        g.fillRect(rowCounter * 5, 260, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5300 && i < 5400){
+                        g.fillRect(rowCounter * 5, 265, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5400 && i < 5500){
+                        g.fillRect(rowCounter * 5, 270, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5500 && i < 5600){
+                        g.fillRect(rowCounter * 5, 275, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5600 && i < 5700){
+                        g.fillRect(rowCounter * 5, 280, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5700 && i < 5800){
+                        g.fillRect(rowCounter * 5, 285, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5800 && i < 5900){
+                        g.fillRect(rowCounter * 5, 290, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5900 && i < 6000){
+                        g.fillRect(rowCounter * 5, 295, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6000 && i < 6100){
+                        g.fillRect(rowCounter * 5, 300, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6100 && i < 6200){
+                        g.fillRect(rowCounter * 5, 305, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6200 && i < 6300){
+                        g.fillRect(rowCounter * 5, 310, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6300 && i < 6400){
+                        g.fillRect(rowCounter * 5, 315, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6400 && i < 6500){
+                        g.fillRect(rowCounter * 5, 320, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6500 && i < 6600){
+                        g.fillRect(rowCounter * 5, 325, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6600 && i < 6700){
+                        g.fillRect(rowCounter * 5, 330, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6700 && i < 6800){
+                        g.fillRect(rowCounter * 5, 335, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6800 && i < 6900){
+                        g.fillRect(rowCounter * 5, 340, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6900 && i < 7000){
+                        g.fillRect(rowCounter * 5, 345, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7000 && i < 7100){
+                        g.fillRect(rowCounter * 5, 350, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7100 && i < 7200){
+                        g.fillRect(rowCounter * 5, 355, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7200 && i < 7300){
+                        g.fillRect(rowCounter * 5, 360, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7300 && i < 7400){
+                        g.fillRect(rowCounter * 5, 365, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7400 && i < 7500){
+                        g.fillRect(rowCounter * 5, 370, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7500 && i < 7600){
+                        g.fillRect(rowCounter * 5, 375, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7600 && i < 7700){
+                        g.fillRect(rowCounter * 5, 380, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7700 && i < 7800){
+                        g.fillRect(rowCounter * 5, 385, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7800 && i < 7900){
+                        g.fillRect(rowCounter * 5, 390, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7900 && i < 8000){
+                        g.fillRect(rowCounter * 5, 395, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8000 && i < 8100){
+                        g.fillRect(rowCounter * 5, 400, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8100 && i < 8200){
+                        g.fillRect(rowCounter * 5, 405, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8200 && i < 8300){
+                        g.fillRect(rowCounter * 5, 410, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8300 && i < 8400){
+                        g.fillRect(rowCounter * 5, 415, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8400 && i < 8500){
+                        g.fillRect(rowCounter * 5, 420, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8500 && i < 8600){
+                        g.fillRect(rowCounter * 5, 425, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8600 && i < 8700){
+                        g.fillRect(rowCounter * 5, 430, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8700 && i < 8800){
+                        g.fillRect(rowCounter * 5, 435, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8800 && i < 8900){
+                        g.fillRect(rowCounter * 5, 440, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8900 && i < 9000){
+                        g.fillRect(rowCounter * 5, 445, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9000 && i < 9100){
+                        g.fillRect(rowCounter * 5, 450, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9100 && i < 9200){ 
+                        g.fillRect(rowCounter * 5, 455, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9200 && i < 9300){
+                        g.fillRect(rowCounter * 5, 460, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9300 && i < 9400){
+                        g.fillRect(rowCounter * 5, 465, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9400 && i < 9500){
+                        g.fillRect(rowCounter * 5, 470, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9500 && i < 9600){
+                        g.fillRect(rowCounter * 5, 475, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9600 && i < 9700){
+                        g.fillRect(rowCounter * 5, 480, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9700 && i < 9800){
+                        g.fillRect(rowCounter * 5, 485, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9800 && i < 9900){
+                        g.fillRect(rowCounter * 5, 490, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9900 && i < 10000){
+                        g.fillRect(rowCounter * 5, 495, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } 
+                } else if(i % 2 === 1){
+                    const ran = getRandomIntInclusive(0, colors.length);
+                    g.fillStyle = colors[ran];
+                    if(i < 10){
+                        g.fillRect(rowCounter * 50, 0, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 10 && i < 20){
+                        g.fillRect(rowCounter * 50, 50, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 20 && i < 30){
+                        g.fillRect(rowCounter * 50, 100, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 30 && i < 40){
+                        g.fillRect(rowCounter * 50, 150, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 40 && i < 50){
+                        g.fillRect(rowCounter * 50, 200, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    }else if(i >= 50 && i < 60){
+                        g.fillRect(rowCounter * 50, 250, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 60 && i < 70){
+                        g.fillRect(rowCounter * 50, 300, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 70 && i < 80){
+                        g.fillRect(rowCounter * 50, 350, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 80 && i < 90){
+                        g.fillRect(rowCounter * 50, 400, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 90 && i < 100){
+                        g.fillRect(rowCounter * 50, 450, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    }
+                } else if(i % 2 === 1){
+                    const ran = getRandomIntInclusive(0, colors.length);
+                    g.fillStyle = colors[ran];
+                    if(i < 10){
+                        g.fillRect(rowCounter * 50, 0, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 10 && i < 20){
+                        g.fillRect(rowCounter * 50, 50, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 20 && i < 30){
+                        g.fillRect(rowCounter * 50, 100, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 30 && i < 40){
+                        g.fillRect(rowCounter * 50, 150, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 40 && i < 50){
+                        g.fillRect(rowCounter * 50, 200, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    }else if(i >= 50 && i < 60){
+                        g.fillRect(rowCounter * 50, 250, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 60 && i < 70){
+                        g.fillRect(rowCounter * 50, 300, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 70 && i < 80){
+                        g.fillRect(rowCounter * 50, 350, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 80 && i < 90){
+                        g.fillRect(rowCounter * 50, 400, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 90 && i < 100){
+                        g.fillRect(rowCounter * 50, 450, 50, 50);
+                        rowCounter++;
+                        if(rowCounter > 9){
+                            rowCounter = 0;
+                        }
+                    } else{
+                        g.fillStyle = 'green';
+                        g.fillRect(i, 10, 10, 10);
+                    }
+                }
+            }
+        }
+        
+        canvas5.update = function(g){
+            let rowCounter = 0;
+            for(let i = 0; i < 10000; i++){
+                if(i % 2 === 0){
+                    const ran = getRandomIntInclusive(0, colors.length);
+                    g.fillStyle = colors[ran];
+                    if(i < 100){
+                        g.fillRect(rowCounter * 5, 0, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 100 && i < 200){
+                        g.fillRect(rowCounter * 5, 5, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 200 && i < 300){
+                        g.fillRect(rowCounter * 5, 10, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 300 && i < 400){
+                        g.fillRect(rowCounter * 5, 15, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 400 && i < 500){
+                        g.fillRect(rowCounter * 5, 20, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 500 && i < 600){
+                        g.fillRect(rowCounter * 5, 25, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 600 && i < 700){
+                        g.fillRect(rowCounter * 5, 30, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 700 && i < 800){
+                        g.fillRect(rowCounter * 5, 35, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 800 && i < 900){
+                        g.fillRect(rowCounter * 5, 40, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 900 && i < 1000){
+                        g.fillRect(rowCounter * 5, 45, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1000 && i < 1100){
+                        g.fillRect(rowCounter * 5, 50, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1100 && i < 1200){
+                        g.fillRect(rowCounter * 5, 55, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1200 && i < 1300){
+                        g.fillRect(rowCounter * 5, 60, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1300 && i < 1400){
+                        g.fillRect(rowCounter * 5, 65, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    }else if(i >= 1400 && i < 1500){
+                        g.fillRect(rowCounter * 5, 70, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1500 && i < 1600){
+                        g.fillRect(rowCounter * 5, 75, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1600 && i < 1700){
+                        g.fillRect(rowCounter * 5, 80, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1700 && i < 1800){
+                        g.fillRect(rowCounter * 5, 85, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1800 && i < 1900){
+                        g.fillRect(rowCounter * 5, 90, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1900 && i < 2000){
+                        g.fillRect(rowCounter * 5, 95, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2000 && i < 2100){
+                        g.fillRect(rowCounter * 5, 100, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2100 && i < 2200){
+                        g.fillRect(rowCounter * 5, 105, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2200 && i < 2300){ 
+                        g.fillRect(rowCounter * 5, 110, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2300 && i < 2400){
+                        g.fillRect(rowCounter * 5, 115, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2400 && i < 2500){
+                        g.fillRect(rowCounter * 5, 120, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2500 && i < 2600){
+                        g.fillRect(rowCounter * 5, 125, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2600 && i < 2700){
+                        g.fillRect(rowCounter * 5, 130, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2700 && i < 2800){
+                        g.fillRect(rowCounter * 5, 135, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2800 && i < 2900){
+                        g.fillRect(rowCounter * 5, 140, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2900 && i < 3000){ //********
+                        g.fillRect(rowCounter * 5, 145, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3000 && i < 3100){
+                        g.fillRect(rowCounter * 5, 150, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3100 && i < 3200){
+                        g.fillRect(rowCounter * 5, 155, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3200 && i < 3300){
+                        g.fillRect(rowCounter * 5, 160, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3300 && i < 3400){
+                        g.fillRect(rowCounter * 5, 165, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    }else if(i >= 3400 && i < 3500){
+                        g.fillRect(rowCounter * 5, 170, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3500 && i < 3600){
+                        g.fillRect(rowCounter * 5, 175, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3600 && i < 3700){
+                        g.fillRect(rowCounter * 5, 180, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3700 && i < 3800){
+                        g.fillRect(rowCounter * 5, 185, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3800 && i < 3900){
+                        g.fillRect(rowCounter * 5, 190, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3900 && i < 4000){
+                        g.fillRect(rowCounter * 5, 195, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4000 && i < 4100){
+                        g.fillRect(rowCounter * 5, 200, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4100 && i < 4200){
+                        g.fillRect(rowCounter * 5, 205, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4200 && i < 4300){
+                        g.fillRect(rowCounter * 5, 210, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4300 && i < 4400){
+                        g.fillRect(rowCounter * 5, 215, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4400 && i < 4500){ //*****
+                        g.fillRect(rowCounter * 5, 220, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4500 && i < 4600){
+                        g.fillRect(rowCounter * 5, 225, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4600 && i < 4700){
+                        g.fillRect(rowCounter * 5, 230, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4700 && i < 4800){
+                        g.fillRect(rowCounter * 5, 235, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4800 && i < 4900){
+                        g.fillRect(rowCounter * 5, 240, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4900 && i < 5000){
+                        g.fillRect(rowCounter * 5, 245, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5000 && i < 5100){
+                        g.fillRect(rowCounter * 5, 250, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5100 && i < 5200){
+                        g.fillRect(rowCounter * 5, 255, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5200 && i < 5300){
+                        g.fillRect(rowCounter * 5, 260, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5300 && i < 5400){
+                        g.fillRect(rowCounter * 5, 265, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5400 && i < 5500){
+                        g.fillRect(rowCounter * 5, 270, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5500 && i < 5600){
+                        g.fillRect(rowCounter * 5, 275, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5600 && i < 5700){
+                        g.fillRect(rowCounter * 5, 280, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5700 && i < 5800){
+                        g.fillRect(rowCounter * 5, 285, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5800 && i < 5900){
+                        g.fillRect(rowCounter * 5, 290, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5900 && i < 6000){
+                        g.fillRect(rowCounter * 5, 295, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6000 && i < 6100){
+                        g.fillRect(rowCounter * 5, 300, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6100 && i < 6200){
+                        g.fillRect(rowCounter * 5, 305, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6200 && i < 6300){
+                        g.fillRect(rowCounter * 5, 310, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6300 && i < 6400){
+                        g.fillRect(rowCounter * 5, 315, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6400 && i < 6500){
+                        g.fillRect(rowCounter * 5, 320, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6500 && i < 6600){
+                        g.fillRect(rowCounter * 5, 325, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6600 && i < 6700){
+                        g.fillRect(rowCounter * 5, 330, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6700 && i < 6800){
+                        g.fillRect(rowCounter * 5, 335, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6800 && i < 6900){
+                        g.fillRect(rowCounter * 5, 340, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6900 && i < 7000){
+                        g.fillRect(rowCounter * 5, 345, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7000 && i < 7100){
+                        g.fillRect(rowCounter * 5, 350, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7100 && i < 7200){
+                        g.fillRect(rowCounter * 5, 355, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7200 && i < 7300){
+                        g.fillRect(rowCounter * 5, 360, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7300 && i < 7400){
+                        g.fillRect(rowCounter * 5, 365, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7400 && i < 7500){
+                        g.fillRect(rowCounter * 5, 370, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7500 && i < 7600){
+                        g.fillRect(rowCounter * 5, 375, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7600 && i < 7700){
+                        g.fillRect(rowCounter * 5, 380, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7700 && i < 7800){
+                        g.fillRect(rowCounter * 5, 385, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7800 && i < 7900){
+                        g.fillRect(rowCounter * 5, 390, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7900 && i < 8000){
+                        g.fillRect(rowCounter * 5, 395, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8000 && i < 8100){
+                        g.fillRect(rowCounter * 5, 400, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8100 && i < 8200){
+                        g.fillRect(rowCounter * 5, 405, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8200 && i < 8300){
+                        g.fillRect(rowCounter * 5, 410, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8300 && i < 8400){
+                        g.fillRect(rowCounter * 5, 415, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8400 && i < 8500){
+                        g.fillRect(rowCounter * 5, 420, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8500 && i < 8600){
+                        g.fillRect(rowCounter * 5, 425, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8600 && i < 8700){
+                        g.fillRect(rowCounter * 5, 430, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8700 && i < 8800){
+                        g.fillRect(rowCounter * 5, 435, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8800 && i < 8900){
+                        g.fillRect(rowCounter * 5, 440, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8900 && i < 9000){
+                        g.fillRect(rowCounter * 5, 445, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9000 && i < 9100){
+                        g.fillRect(rowCounter * 5, 450, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9100 && i < 9200){ 
+                        g.fillRect(rowCounter * 5, 455, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9200 && i < 9300){
+                        g.fillRect(rowCounter * 5, 460, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9300 && i < 9400){
+                        g.fillRect(rowCounter * 5, 465, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9400 && i < 9500){
+                        g.fillRect(rowCounter * 5, 470, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9500 && i < 9600){
+                        g.fillRect(rowCounter * 5, 475, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9600 && i < 9700){
+                        g.fillRect(rowCounter * 5, 480, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9700 && i < 9800){
+                        g.fillRect(rowCounter * 5, 485, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9800 && i < 9900){
+                        g.fillRect(rowCounter * 5, 490, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9900 && i < 10000){
+                        g.fillRect(rowCounter * 5, 495, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } 
+                } else if(i % 2 === 1){
+                    const ran2 = getRandomIntInclusive(0, colors.length);
+                    g.fillStyle = colors[ran2];
+                    if(i < 100){
+                        g.fillRect(rowCounter * 5, 0, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 100 && i < 200){
+                        g.fillRect(rowCounter * 5, 5, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 200 && i < 300){
+                        g.fillRect(rowCounter * 5, 10, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 300 && i < 400){
+                        g.fillRect(rowCounter * 5, 15, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 400 && i < 500){
+                        g.fillRect(rowCounter * 5, 20, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 500 && i < 600){
+                        g.fillRect(rowCounter * 5, 25, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 600 && i < 700){
+                        g.fillRect(rowCounter * 5, 30, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 700 && i < 800){
+                        g.fillRect(rowCounter * 5, 35, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 800 && i < 900){
+                        g.fillRect(rowCounter * 5, 40, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 900 && i < 1000){
+                        g.fillRect(rowCounter * 5, 45, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1000 && i < 1100){
+                        g.fillRect(rowCounter * 5, 50, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1100 && i < 1200){
+                        g.fillRect(rowCounter * 5, 55, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1200 && i < 1300){
+                        g.fillRect(rowCounter * 5, 60, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1300 && i < 1400){
+                        g.fillRect(rowCounter * 5, 65, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    }else if(i >= 1400 && i < 1500){
+                        g.fillRect(rowCounter * 5, 70, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1500 && i < 1600){
+                        g.fillRect(rowCounter * 5, 75, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1600 && i < 1700){
+                        g.fillRect(rowCounter * 5, 80, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1700 && i < 1800){
+                        g.fillRect(rowCounter * 5, 85, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1800 && i < 1900){
+                        g.fillRect(rowCounter * 5, 90, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 1900 && i < 2000){
+                        g.fillRect(rowCounter * 5, 95, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2000 && i < 2100){
+                        g.fillRect(rowCounter * 5, 100, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2100 && i < 2200){
+                        g.fillRect(rowCounter * 5, 105, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2200 && i < 2300){ 
+                        g.fillRect(rowCounter * 5, 110, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2300 && i < 2400){
+                        g.fillRect(rowCounter * 5, 115, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2400 && i < 2500){
+                        g.fillRect(rowCounter * 5, 120, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2500 && i < 2600){
+                        g.fillRect(rowCounter * 5, 125, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2600 && i < 2700){
+                        g.fillRect(rowCounter * 5, 130, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2700 && i < 2800){
+                        g.fillRect(rowCounter * 5, 135, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2800 && i < 2900){
+                        g.fillRect(rowCounter * 5, 140, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 2900 && i < 3000){ //********
+                        g.fillRect(rowCounter * 5, 145, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3000 && i < 3100){
+                        g.fillRect(rowCounter * 5, 150, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3100 && i < 3200){
+                        g.fillRect(rowCounter * 5, 155, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3200 && i < 3300){
+                        g.fillRect(rowCounter * 5, 160, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3300 && i < 3400){
+                        g.fillRect(rowCounter * 5, 165, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    }else if(i >= 3400 && i < 3500){
+                        g.fillRect(rowCounter * 5, 170, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3500 && i < 3600){
+                        g.fillRect(rowCounter * 5, 175, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3600 && i < 3700){
+                        g.fillRect(rowCounter * 5, 180, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3700 && i < 3800){
+                        g.fillRect(rowCounter * 5, 185, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3800 && i < 3900){
+                        g.fillRect(rowCounter * 5, 190, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 3900 && i < 4000){
+                        g.fillRect(rowCounter * 5, 195, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4000 && i < 4100){
+                        g.fillRect(rowCounter * 5, 200, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4100 && i < 4200){
+                        g.fillRect(rowCounter * 5, 205, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4200 && i < 4300){
+                        g.fillRect(rowCounter * 5, 210, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4300 && i < 4400){
+                        g.fillRect(rowCounter * 5, 215, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4400 && i < 4500){ //*****
+                        g.fillRect(rowCounter * 5, 220, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4500 && i < 4600){
+                        g.fillRect(rowCounter * 5, 225, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4600 && i < 4700){
+                        g.fillRect(rowCounter * 5, 230, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4700 && i < 4800){
+                        g.fillRect(rowCounter * 5, 235, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4800 && i < 4900){
+                        g.fillRect(rowCounter * 5, 240, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 4900 && i < 5000){
+                        g.fillRect(rowCounter * 5, 245, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5000 && i < 5100){
+                        g.fillRect(rowCounter * 5, 250, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5100 && i < 5200){
+                        g.fillRect(rowCounter * 5, 255, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5200 && i < 5300){
+                        g.fillRect(rowCounter * 5, 260, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5300 && i < 5400){
+                        g.fillRect(rowCounter * 5, 265, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5400 && i < 5500){
+                        g.fillRect(rowCounter * 5, 270, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5500 && i < 5600){
+                        g.fillRect(rowCounter * 5, 275, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5600 && i < 5700){
+                        g.fillRect(rowCounter * 5, 280, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5700 && i < 5800){
+                        g.fillRect(rowCounter * 5, 285, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5800 && i < 5900){
+                        g.fillRect(rowCounter * 5, 290, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 5900 && i < 6000){
+                        g.fillRect(rowCounter * 5, 295, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6000 && i < 6100){
+                        g.fillRect(rowCounter * 5, 300, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6100 && i < 6200){
+                        g.fillRect(rowCounter * 5, 305, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6200 && i < 6300){
+                        g.fillRect(rowCounter * 5, 310, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6300 && i < 6400){
+                        g.fillRect(rowCounter * 5, 315, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6400 && i < 6500){
+                        g.fillRect(rowCounter * 5, 320, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6500 && i < 6600){
+                        g.fillRect(rowCounter * 5, 325, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6600 && i < 6700){
+                        g.fillRect(rowCounter * 5, 330, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6700 && i < 6800){
+                        g.fillRect(rowCounter * 5, 335, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6800 && i < 6900){
+                        g.fillRect(rowCounter * 5, 340, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 6900 && i < 7000){
+                        g.fillRect(rowCounter * 5, 345, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7000 && i < 7100){
+                        g.fillRect(rowCounter * 5, 350, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7100 && i < 7200){
+                        g.fillRect(rowCounter * 5, 355, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7200 && i < 7300){
+                        g.fillRect(rowCounter * 5, 360, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7300 && i < 7400){
+                        g.fillRect(rowCounter * 5, 365, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7400 && i < 7500){
+                        g.fillRect(rowCounter * 5, 370, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7500 && i < 7600){
+                        g.fillRect(rowCounter * 5, 375, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7600 && i < 7700){
+                        g.fillRect(rowCounter * 5, 380, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7700 && i < 7800){
+                        g.fillRect(rowCounter * 5, 385, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7800 && i < 7900){
+                        g.fillRect(rowCounter * 5, 390, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 7900 && i < 8000){
+                        g.fillRect(rowCounter * 5, 395, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8000 && i < 8100){
+                        g.fillRect(rowCounter * 5, 400, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8100 && i < 8200){
+                        g.fillRect(rowCounter * 5, 405, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8200 && i < 8300){
+                        g.fillRect(rowCounter * 5, 410, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8300 && i < 8400){
+                        g.fillRect(rowCounter * 5, 415, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8400 && i < 8500){
+                        g.fillRect(rowCounter * 5, 420, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8500 && i < 8600){
+                        g.fillRect(rowCounter * 5, 425, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8600 && i < 8700){
+                        g.fillRect(rowCounter * 5, 430, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8700 && i < 8800){
+                        g.fillRect(rowCounter * 5, 435, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8800 && i < 8900){
+                        g.fillRect(rowCounter * 5, 440, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 8900 && i < 9000){
+                        g.fillRect(rowCounter * 5, 445, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9000 && i < 9100){
+                        g.fillRect(rowCounter * 5, 450, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9100 && i < 9200){ 
+                        g.fillRect(rowCounter * 5, 455, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9200 && i < 9300){
+                        g.fillRect(rowCounter * 5, 460, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9300 && i < 9400){
+                        g.fillRect(rowCounter * 5, 465, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9400 && i < 9500){
+                        g.fillRect(rowCounter * 5, 470, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9500 && i < 9600){
+                        g.fillRect(rowCounter * 5, 475, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9600 && i < 9700){
+                        g.fillRect(rowCounter * 5, 480, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9700 && i < 9800){
+                        g.fillRect(rowCounter * 5, 485, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9800 && i < 9900){
+                        g.fillRect(rowCounter * 5, 490, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else if(i >= 9900 && i < 10000){
+                        g.fillRect(rowCounter * 5, 495, 5, 5);
+                        rowCounter++;
+                        if(rowCounter > 99){
+                            rowCounter = 0;
+                        }
+                    } else{
+                        g.fillStyle = 'green';
+                        g.fillRect(i, 10, 10, 10);
+                    }
+                }
+            }
+        }
+        
+        /*canvas.update = function(g){
+            g.fillStyle = 'white';
+            g.fillRect(0, 0, 500, 500);
+        }*/
+		draw2DCanvases([canvas, canvas1, canvas2, canvas3, canvas4, canvas5]);
+    
+	</script>
+</html>
